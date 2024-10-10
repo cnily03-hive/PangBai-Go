@@ -109,9 +109,9 @@ func routeFavorite(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPut {
 
 		// ensure only localhost can access
-		requestIP := strings.Split(r.RemoteAddr, ":")[0]
+		requestIP := r.RemoteAddr[:strings.LastIndex(r.RemoteAddr, ":")]
 		fmt.Println("Request IP:", requestIP)
-		if requestIP != "127.0.0.1" {
+		if requestIP != "127.0.0.1" && requestIP != "[::1]" {
 			w.WriteHeader(http.StatusForbidden)
 			w.Write([]byte("Only localhost can access"))
 			return
