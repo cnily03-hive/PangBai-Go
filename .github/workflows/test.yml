@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '^1.18.1'
+
+    - name: Install dependencies
+      run: |
+        go mod download
+
+    - name: Build
+      run: |
+        go build -o app .
+
+    - name: Test dry run
+      run: |
+        timeout 5s ./app || if [ $? -eq 124 ]; then exit 0; else exit 1; fi

@@ -1,0 +1,31 @@
+FROM golang:1.18-alpine AS builder
+
+COPY . /app
+RUN mkdir /out
+WORKDIR /app
+RUN go build -o /out/main .
+RUN cp -r /app/assets /app/views /app/sign.txt -t /out
+
+FROM alpine:3.20
+
+COPY --from=builder /out /app
+
+ENV FLAG="flag{test_flag}"
+
+RUN apk add --update \
+    curl \
+    bash \
+    && rm -rf /var/cache/apk/*
+
+RUN adduser -D ctf
+
+RUN curl -fsSL https://gist.githubusercontent.com/Cnily03/4d4a8a1f2ba63328a9543c82b73a677c/raw/52987d559dce12729d1e968d8433b4ffb4c959c7/mvval.sh -o /usr/local/bin/mvval.sh && \
+    chmod +x /usr/local/bin/mvval.sh
+
+USER root
+WORKDIR /app
+ENTRYPOINT [ "/usr/local/bin/mvval.sh", "--type=env", "--name=ICQ_FLAG:FLAG", "--user=ctf", "--" ]
+
+CMD ["/app/main"]
+
+EXPOSE 8000

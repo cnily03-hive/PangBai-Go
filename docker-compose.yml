@@ -1,0 +1,13 @@
+version: '3.8'
+name: pangbai-go
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ctf-pangbai-go:latest
+    environment:
+      - FLAG=flag{test_real_flag}
+    ports:
+      - '58000:8000'
