@@ -1,0 +1,73 @@
+:root {
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+*::selection {
+    background-color: rgba(61, 170, 194, 0.25);
+}
+
+.view {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.background {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    background-image: url('/assets/images/background.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.mask {
+    display: block;
+    position: fixed;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 100%;
+    height: 100%;
+}
+
+.box {
+    display: block;
+    position: relative;
+    z-index: 10;
+    max-width: calc(100% - 20px);
+}
+
+.box img.main {
+    display: block;
+    max-width: 100%;
+    width: min(80vw, 1200px);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+.fixed {
+    display: block;
+    position: fixed;
+    z-index: 5;
+    right: 0;
+    bottom: 0;
+}
+
+.text {
+    color: #edf5fb;
+    --font-size: max(16px, min(2.4vw, 24px));
+    font-size: var(--font-size);
+    padding: calc(var(--font-size) * 0.6) calc(var(--font-size) * 0.8);
+    text-align: right;
+}

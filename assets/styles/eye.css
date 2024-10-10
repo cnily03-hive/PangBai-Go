@@ -1,0 +1,43 @@
+:root {
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+*::selection {
+    background-color: rgba(61, 170, 194, 0.25);
+}
+
+.view {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.box {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 50vw;
+    font-size: 24px;
+    font-family: "Punctuation SC", "Inter", ui-sans-serif, system-ui, "PingFang SC", "Noto Sans CJK SC", "Noto Sans SC", "Heiti SC", "Microsoft YaHei", "DengXian", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 500;
+    transition: box-shadow 0.25s;
+    word-break: break-word;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.box.hover {
+    box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.5);
+}
+
+[contenteditable] {
+    outline: none;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PangBai 之眼 - PangBai 过家家 (4)</title>
+    <link rel="stylesheet" href="/assets/styles/eye.css">
+    <script type="text/javascript" src="/assets/scripts/eye.js"></script>
+</head>
+
+<body>
+    <div class="view">
+        <div class="box hover">
+            <span id="input" contenteditable></span>
+            <script>document.getElementById('input').innerText = new URLSearchParams(window.location.search).get('input') || '{' + '{' + ' .User ' + '}' + '}'</script>
+        </div>
+        <div class="box">
+            <span id="output">%s</span>
+        </div>
+    </div>
+</body>
+
+</html>
