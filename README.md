@@ -2,9 +2,9 @@
 
 This is the challenge for NewStarCTF 2024 in the category of Web, Week 4.
 
-The participants need to leak JWT key via SSTI and take exploit of SSRF to read any file, and then read environment file under `proc/` directory to get the flag.
+The participants need to leak JWT key via SSTI and take exploit of SSRF to read any file, and then read `/proc/self/environ` to get the flag.
 
-The challenge provide the whole source code including [hind.md](hind.md) to participants.
+The challenge provides the whole source code including [hind.md](hind.md) to participants.
 
 ## Deployment
 
@@ -20,7 +20,15 @@ docker compose up -d # Start the container
 
 ## Exploit
 
-The exploit script is provided in [exploit/exp.py](exploit/exp.py). Just run the script with Python.
+The `/eye` route has vulnerability of SSTI. By passing `input` GET parameter, the server will render the template with the input.
+
+Therefore, visit `/eye?input={{.Config.JwtKey}}` to leak the JWT key.
+
+The `/favorite` route needs us to send a PUT request with cookie and body. We can easily sign the Cookie whose `user` is `Papa` with the leaked key, and use `{{ .Curl "url" }}` to take exploit of SSRF. Note that the Gopher protocol is useful to send raw TCP request of HTTP.
+
+After changing the value of `SignaturePath` into `/proc/self/environ`, we can read the environment variables of the server by simply visiting `/favorite`.
+
+The exploit script is provided on [exploit/exp.py](exploit/exp.py). Just run it with Python.
 
 ```bash
 python3 exp.py '172.18.0.2:8000' # Please replace the origin
