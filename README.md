@@ -1,10 +1,10 @@
-# PangBai-HTTP
+# PangBai-Go
 
 This is the challenge for NewStarCTF 2024 in the category of Web, Week 4.
 
 The participants need to leak JWT key via SSTI and take exploit of SSRF to read any file, and then read `/proc/self/environ` to get the flag.
 
-The challenge provides the whole source code including [hind.md](hind.md) to participants.
+The challenge provides the whole source code including [hint.md](hint.md) to participants.
 
 ## Deployment
 
@@ -20,7 +20,7 @@ docker compose up -d # Start the container
 
 ## Exploit
 
-The `/eye` route has vulnerability of SSTI. By passing `input` GET parameter, the server will render the template with the input.
+The `/eye` route has a vulnerability of SSTI. By passing `input` GET parameter, the server will render the template with the input.
 
 Therefore, visit `/eye?input={{.Config.JwtKey}}` to leak the JWT key.
 
