@@ -158,6 +158,7 @@ func routeFavorite(w http.ResponseWriter, r *http.Request) {
 	sig, err := ioutil.ReadFile(config.SignaturePath)
 	if err != nil {
 		http.Error(w, "Failed to read signature files: "+config.SignaturePath, http.StatusInternalServerError)
+		return
 	}
 
 	err = tmpl.Execute(w, string(sig))
