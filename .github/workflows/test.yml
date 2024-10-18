@@ -5,8 +5,8 @@ on:
   - pull_request
 
 jobs:
-  build:
-    name: Build
+  test:
+    name: Dry run
     runs-on: ubuntu-latest
 
     strategy:
